@@ -16,6 +16,8 @@ defmodule RNATranscription do
   }
   @spec to_rna([char]) :: [char]
   def to_rna(dna) do
-    Map.fetch!(@char, dna)
+    Map.get(@char, dna)
+    |> to_charlist
+    #ultimo test mancante
   end
 end
