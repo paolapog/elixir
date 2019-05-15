@@ -12,15 +12,15 @@ defmodule Raindrops do
   """
   @spec convert(pos_integer) :: String.t()
 
-  def convert(number) when rem(number , 3) == 0 and rem(number, 5) == 0 and rem(number, 7) == 0, do: "PlingPlangPlong"
-  def convert(number) when rem(number , 3) == 0 and rem(number, 5) == 0 , do: "PlingPlang"
-  def convert(number) when rem(number , 3) == 0 and rem(number, 7) == 0 , do: "PlingPlong"
-  def convert(number) when rem(number , 5) == 0 and rem(number, 7) == 0 , do: "PlangPlong"
+  def convert(number) do
+    fetch =
+    %{ 3 => "Pling", 5 => "Plang", 7 => "Plong" }
+    |> Enum.reduce("", fn {num, word}, acc ->
+      if rem(number, num) == 0, do: acc <> word, else: acc
+    end)
 
-  def convert(number) when rem(number , 3) == 0 , do: "Pling"
-  def convert(number) when rem(number , 5) == 0 , do: "Plang"
-  def convert(number) when rem(number , 7) == 0 , do: "Plong"
-  def convert(_number), do: Integer.digits(_number) |> Enum.join
+    if fetch == "", do: to_string(number), else: fetch
+  end
 
 end
 
